@@ -192,15 +192,11 @@ def root_mean_squared_error(y_true, y_pred):
     return rmse
 
 # Step 17 - r_squared
-import numpy as np
-
 def r_squared(y_true, y_pred):
     # TODO: Compute R^2 = 1 - SS_res/SS_tot (return 0.0 if SS_tot is 0)...
-    y_true = np.asarray(y_true, dtype=float)
-    y_pred = np.asarray(y_pred, dtype=float)
 
-    ss_res = np.sum((y_true - y_pred) ** 2)
-    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+    ss_res = sum((y_true - y_pred) ** 2)
+    ss_tot = sum((y_true - np.mean(y_true)) ** 2)
 
     if ss_tot == 0:
         return 0.0
