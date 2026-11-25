@@ -13,16 +13,16 @@ python scaffold.py
 - [x] **1.** impute_nan_with_mean
 - [x] **2.** compute_iqr_bounds
 - [x] **3.** clip_columns
-- [ ] **4.** make_ratio_feature
-- [ ] **5.** append_column
-- [ ] **6.** one_hot_encode
-- [ ] **7.** fit_standardizer
-- [ ] **8.** apply_standardizer
-- [ ] **9.** add_bias_column
-- [ ] **10.** make_shuffled_indices
-- [ ] **11.** partition_indices
-- [ ] **12.** subset_xy
-- [ ] **13.** ols_fit
+- [x] **4.** make_ratio_feature
+- [x] **5.** append_column
+- [x] **6.** one_hot_encode
+- [x] **7.** fit_standardizer
+- [x] **8.** apply_standardizer
+- [x] **9.** add_bias_column
+- [x] **10.** make_shuffled_indices
+- [x] **11.** partition_indices
+- [x] **12.** subset_xy
+- [x] **13.** ols_fit
 - [ ] **14.** ols_predict
 - [ ] **15.** mean_absolute_error
 - [ ] **16.** root_mean_squared_error

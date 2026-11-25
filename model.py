@@ -55,35 +55,111 @@ def clip_columns(X, lower, upper):
     # TODO: Clip every entry of a feature matrix to per-column lower/upper bounds.
     return np.clip(X, lower, upper)
 
-# Step 4 - make_ratio_feature (not yet solved)
-# TODO: implement
+# Step 4 - make_ratio_feature
+import numpy as np
+def make_ratio_feature(numerator, denominator, eps=1e-8):
+    # TODO: Form a derived ratio feature from two 1-D arrays with safe division.
+    numerator = np.asarray(numerator, dtype=float)
+    denominator = np.asarray(denominator, dtype=float)
 
-# Step 5 - append_column (not yet solved)
-# TODO: implement
+    return numerator / (denominator + eps)
 
-# Step 6 - one_hot_encode (not yet solved)
-# TODO: implement
+# Step 5 - append_column
+import numpy as np
 
-# Step 7 - fit_standardizer (not yet solved)
-# TODO: implement
+def append_column(X, col):
+    # TODO: Horizontally append one 1-D feature column onto a design matrix.
+    return np.column_stack((X,col))
 
-# Step 8 - apply_standardizer (not yet solved)
-# TODO: implement
+# Step 6 - one_hot_encode
+import numpy as np
+def one_hot_encode(labels):
+    # TODO: Convert a 1-D array of categorical labels into a dense binary one-hot matrix.
+    categories, inverse = np.unique(labels, return_inverse=True)
 
-# Step 9 - add_bias_column (not yet solved)
-# TODO: implement
+    result = np.zeros((len(inverse), len(categories)), dtype=float)
+    result[np.arange(len(inverse)), inverse] = 1.0
 
-# Step 10 - make_shuffled_indices (not yet solved)
-# TODO: implement
+    return result
 
-# Step 11 - partition_indices (not yet solved)
-# TODO: implement
+# Step 7 - fit_standardizer
+import numpy as np
 
-# Step 12 - subset_xy (not yet solved)
-# TODO: implement
+def fit_standardizer(X):
+    # TODO: Compute per-column mean and std used to standardize features...
+    X = np.asarray(X, dtype=float)
 
-# Step 13 - ols_fit (not yet solved)
-# TODO: implement
+    mean = np.mean(X, axis=0)
+    std = np.std(X, axis=0)
+    std[std == 0] = 1.0
+
+    return mean, std
+
+# Step 8 - apply_standardizer
+import numpy as np
+
+def apply_standardizer(X, mean, std):
+    # TODO: Return the scaled matrix (X - mean) / std via broadcasting.
+    X = np.asarray(X, dtype=float)
+    mean = np.asarray(mean, dtype=float)
+    std = np.asarray(std, dtype=float)
+
+    return (X - mean) / std
+
+# Step 9 - add_bias_column
+import numpy as np
+
+def add_bias_column(X):
+    # TODO: Prepend a column of ones to a 2-D feature matrix X...
+    X = np.asarray(X, dtype=float)
+    ones = np.ones(X.shape[0])
+    return np.column_stack((ones,X))
+
+# Step 10 - make_shuffled_indices
+import numpy as np
+
+def make_shuffled_indices(n_samples, seed):
+    # TODO: Create a reproducibly shuffled permutation of row indices.
+    rng = np.random.default_rng(seed)
+    return rng.permutation(n_samples)
+
+# Step 11 - partition_indices
+import numpy as np
+
+def partition_indices(indices, train_ratio, val_ratio):
+    # TODO: Split a shuffled index array into train, validation, and test index arrays.
+    indices = np.asarray(indices, dtype=int)
+    n = len(indices)
+
+    n_train = int(n * train_ratio)
+    n_val = int(n * val_ratio)
+
+    train_idx = indices[:n_train]
+    val_idx = indices[n_train:n_train + n_val]
+    test_idx = indices[n_train + n_val:]
+
+    return train_idx,val_idx,test_idx
+
+# Step 12 - subset_xy
+import numpy as np
+
+def subset_xy(X, y, indices):
+    # TODO: Select the rows of X and y at the given indices.
+    X = np.asarray(X, dtype=float)
+    y = np.asarray(y, dtype=float)
+
+    return X[indices],y[indices]
+
+# Step 13 - ols_fit
+import numpy as np
+
+def ols_fit(X, y):
+    # TODO: return the ordinary-least-squares weight vector for a linear model.
+    X = np.asarray(X, dtype=float)
+    y = np.asarray(y, dtype=float)
+
+    theta, _, _, _ = np.linalg.lstsq(X, y, rcond=None)
+    return theta
 
 # Step 14 - ols_predict (not yet solved)
 # TODO: implement
